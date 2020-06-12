@@ -2,6 +2,7 @@
 
 import rospy
 from std_msgs.msg import String
+from std_msgs.msg import Float32
 
 from PySide2.QtCore import Slot
 from PySide2.QtCore import Signal
@@ -22,6 +23,7 @@ class Backend(QObject):
     def __init__(self, parent=None):
         QObject.__init__(self, parent)
         self._pub_chatter = rospy.Publisher('chatter', String, queue_size=1)
+        self._pub_float = rospy.Publisher('slider', Float32, queue_size=1)
 
         self._last_msg = None
         self._sub_chatter = rospy.Subscriber('chatter', String, self.cb_chatter, queue_size=1)
@@ -45,6 +47,12 @@ class Backend(QObject):
         msg = String()
         msg.data = value
         self._pub_chatter.publish(msg)
+
+    @Slot(float)
+    def publish_slider(self, data):
+        msg = Float32()
+        msg.data = data
+        self._pub_float.publish(msg)
 
 
 def main():

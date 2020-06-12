@@ -55,6 +55,36 @@ ApplicationWindow {
         selectByMouse: true
     }
 
+    Text {
+        id: sliderTopicName
+        y: 145
+        height: 34
+        text: qsTr("Publish data to /slider topic")
+        z: 3
+        anchors.right: parent.right
+        anchors.rightMargin: 25
+        anchors.left: parent.left
+        anchors.leftMargin: 25
+        font.letterSpacing: 0
+        verticalAlignment: Text.AlignVCenter
+        font.pixelSize: 24
+    }
+
+    Slider {
+        id: slider
+        y: 192
+        height: 40
+        anchors.right: parent.right
+        anchors.rightMargin: 25
+        anchors.left: parent.left
+        anchors.leftMargin: 25
+        value: 0.5
+
+        onValueChanged: {
+            backend.publish_slider(slider.value)
+        }
+    }
+
     PythonBackend {
         id: backend
 
