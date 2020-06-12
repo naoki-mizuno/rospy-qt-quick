@@ -21,10 +21,10 @@ class Backend(QObject):
 
     def __init__(self, parent=None):
         QObject.__init__(self, parent)
-        self._pub = rospy.Publisher('chatter', String, queue_size=1)
+        self._pub_chatter = rospy.Publisher('chatter', String, queue_size=1)
 
         self._last_msg = None
-        self._sub = rospy.Subscriber('chatter', String, self.cb_chatter, queue_size=1)
+        self._sub_chatter = rospy.Subscriber('chatter', String, self.cb_chatter, queue_size=1)
 
     def cb_chatter(self, msg):
         self._last_msg = msg
@@ -36,15 +36,15 @@ class Backend(QObject):
 
     @Slot(str, str)
     def publish_string(self, topic_name, value):
-        if self._pub.name != topic_name:
-            self._pub = rospy.Publisher(topic_name, String, queue_size=1)
+        if self._pub_chatter.name != topic_name:
+            self._pub_chatter = rospy.Publisher(topic_name, String, queue_size=1)
             print('Switching pub topic: {}'.format(topic_name))
             # Wait for a while for the topic to spin up
             rospy.sleep(0.5)
 
         msg = String()
         msg.data = value
-        self._pub.publish(msg)
+        self._pub_chatter.publish(msg)
 
 
 def main():

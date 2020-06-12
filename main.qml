@@ -5,10 +5,10 @@ import QtQuick.Controls.Material 2.0
 import PythonBackendLibrary 1.0
 
 ApplicationWindow {
-    title: qsTr('QtQuick + rospy')
+    title: qsTr('QtQuick2 + rospy')
     id: root
-    width: 400
-    height: 300
+    width: 450
+    height: 400
     visible: true
 
     Material.theme: Material.Light
@@ -65,7 +65,7 @@ ApplicationWindow {
 
     Text {
         id: subscribedTopicName
-        y: 153
+        y: 253
         height: 34
         text: qsTr("Data received on chatter topic")
         z: 3
@@ -75,12 +75,12 @@ ApplicationWindow {
         anchors.leftMargin: 25
         font.letterSpacing: 0
         verticalAlignment: Text.AlignVCenter
-        font.pixelSize: 27
+        font.pixelSize: 24
     }
 
     Text {
         id: receivedData
-        y: 201
+        y: 301
         height: 85
         text: qsTr("Received data will appear here...")
         z: 2
